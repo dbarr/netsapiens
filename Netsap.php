@@ -10,11 +10,14 @@ class Netsap {
             "refresh"
         ),
         "subscriber" => array(
-            "count", "read", "update"
+            "count", "read", "update", "create"
         ),
         "device" => array(
             "read"
-        )
+        ),
+        "phonenumber" => array(
+            "read", "create"
+        ),
     );
     protected $_objectName;
     protected $_action;
