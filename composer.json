@@ -1,14 +1,13 @@
 {
-  "name": "vendor_name/package_name",
-  "description": "description_text",
-  "minimum-stability": "stable",
-  "license": "proprietary",
-  "authors": [
-    {
-      "name": "author's name",
-      "email": "email@example.com"
+  "name": "tzewangdorje/netsapiens",
+  "description": "A simple PHP command line client for calling the NetSapiens API",
+  "keywords": ["netsapiens", "sip", "pbx", "api"],
+  "autoload": {
+    "psr-0" : {
+      "Tzewangdorje\\Netsapiens" : "src/"
     }
-  ],
+  },
+  "bin": ["bin/netsapiens.php"],
   "require": {
     "docopt/docopt": "1.0.0-rc1",
     "guzzlehttp/guzzle": "5.1.0"

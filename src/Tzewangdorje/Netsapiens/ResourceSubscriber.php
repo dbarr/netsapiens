@@ -1,9 +1,9 @@
 <?php
 
-namespace Orbtalk;
+namespace Tzewangdorje\Netsapiens;
 
 
-class NetsapObjSubscriber extends NetsapObj {
+class ResourceSubscriber extends Resource {
 
     public function count (array $params)
     {
@@ -50,6 +50,22 @@ class NetsapObjSubscriber extends NetsapObj {
                 'domain' => $params["domain"],
                 'user' => $params["user"],
                 $params["key"] => $params["value"],
+            ],
+        ]);
+    }
+
+    public function create (array $params)
+    {
+        return $this->_client->post(
+            $this->_apiUri, [
+            'verify' => false,
+            'headers' => ['Authorization' => 'Bearer ' . $params["token"]],
+            'body' => [
+                'object' => "subscriber",
+                'action' => "create",
+                'domain' => $params["domain"],
+                'user' => $params["user"],
+                'username' => $params["username"],
             ],
         ]);
     }

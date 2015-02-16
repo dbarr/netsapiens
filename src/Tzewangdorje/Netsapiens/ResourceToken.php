@@ -1,9 +1,9 @@
 <?php
 
-namespace Orbtalk;
+namespace Tzewangdorje\Netsapiens;
 
 
-class NetsapObjToken extends NetsapObj {
+class ResourceToken extends Resource {
 
     public function refresh (array $params)
     {

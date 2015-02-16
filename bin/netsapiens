@@ -1,0 +1,59 @@
+#!/usr/bin/php
+<?php 
+
+require 'vendor/autoload.php';
+
+$doc = <<<DOC
+Orbtalk Netsapiens PHP Client.
+
+Usage:
+  netsapiens.php token refresh --username=<username> --password=><password>
+  netsapiens.php subscriber count --token=<token> --domain=<domain>
+  netsapiens.php subscriber read --token=<token> --domain=<domain> [--user=<user>] [--limit=<limit>]
+  netsapiens.php subscriber update --token=<token> --domain=<domain> --user=<user> --key=<key> --value=<value>
+  netsapiens.php subscriber create --token=<token> --domain=<domain> --user=<user> --username=<username>
+  netsapiens.php phonenumber read --token=<token> --domain=<domain> --to-user=<to-user> --plan=<plan>
+  netsapiens.php phonenumber create --token=<token> --domain=<domain> --to-user=<to-user> --plan=<plan> --match=<match>
+  netsapiens.php device read --token=<token> --domain=<domain>
+  netsapiens.php device create --token=<token> --domain=<domain> --user=<user> [--auth-key=<auth-key>]
+  netsapiens.php domain read --token=<token> [--domain=<domain>]
+  netsapiens.php (-h | --help)
+  netsapiens.php --version
+
+Options:
+  -h --help                Show this screen.
+  --version                Show version.
+  --username=<user>        Login username in user@domain format.
+  --token=<token>          OAuth token generated with the "token refresh" command.
+  --password=<password>    Password for the login username.
+  --limit=<limit>          Limit number of returned results [default: 1].
+  --user=<limit>           Subscriber user to be altered.
+  --key=<limit>            Key to be altered.
+  --value=<limit>          Value to set the key to.
+  --to-user=<to-user>      Destination user.
+  --plan=<plan>            Dial plan.
+  --match=<match>          Match rule for dial plan table.
+  --auth-key=<auth-key>    Authentication key for a device
+DOC;
+
+$response = Docopt::handle($doc, array('version'=>'Naval Fate 2.0'));
+
+$msg = <<<MSG
+Ensure you have a config.ini file in the directory from which you are running the command. The format is:
+[general]
+apiUri = https://my-domain.com/ns-api/
+clientId = username
+clientSecret = password\n
+MSG;
+
+if ( ! file_exists("config.ini") ) {
+    die($msg);
+}
+
+$config = parse_ini_file("config.ini");
+if ( $config===false) {
+    die($msg);
+}
+
+$netsap = new Tzewangdorje\Netsapiens\Client($response->args, $config);
+$netsap->run();

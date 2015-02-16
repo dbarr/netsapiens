@@ -1,9 +1,9 @@
 <?php
 
-namespace Orbtalk;
+namespace Tzewangdorje\Netsapiens;
 
 
-class Netsap {
+class Client {
 
     protected $_objects = array(
         "token" => array(
@@ -13,34 +13,69 @@ class Netsap {
             "count", "read", "update", "create"
         ),
         "device" => array(
-            "read"
+            "read", "create"
         ),
         "phonenumber" => array(
             "read", "create"
+        ),
+        "domain" => array(
+            "read"
         ),
     );
     protected $_objectName;
     protected $_action;
     protected $_params = array();
+    protected $_config = array();
 
 
-    public function __construct(array $args)
+    public function __construct(array $args, array $config=array() )
     {
+        if ( ! is_null($config) ) {
+            $this->_loadConfig($config);
+        }
         list($this->_objectName, $this->_action, $this->_params) = $this->_getObjectAction($args);
+    }
+
+    protected function _loadConfig(array $config)
+    {
+        if ( ! isset($config["apiUri"]) ) {
+            throw new \Exception("apiUri config setting missing");
+        }
+        $this->_config["apiUri"] = $config["apiUri"];
+        if ( ! isset($config["clientId"]) ) {
+            throw new \Exception("clientId config setting missing");
+        }
+        $this->_config["clientId"] = $config["clientId"];
+        if ( ! isset($config["clientSecret"]) ) {
+            throw new \Exception("clientSecret config setting missing");
+        }
+        $this->_config["clientSecret"] = $config["clientSecret"];
+    }
+
+    protected function _makePretty($body)
+    {
+        $doc = new \DOMDocument();
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
+        if ( ! @$doc->loadXML($body) ) {
+            return $body; // if it's not valid XML, then just return the $body string unprocessed
+        }
+        return $doc->saveXML();
     }
 
     public function run()
     {
-        $className = "\Orbtalk\NetsapObj" . ucfirst($this->_objectName);
-        $object = new $className;
+        $className = "\Tzewangdorje\Netsapiens\Resource" . ucfirst($this->_objectName);
+        $object = new $className($this->_config);
         try {
             $response = call_user_func_array(array($object,$this->_action), array($this->_params));
             $statusCode = $response->getStatusCode();
             $body = $response->getBody();
             if ( $statusCode != "200" || "$body"=="" ) {
                 echo $statusCode . " " . $response->getReasonPhrase() . "\n";
+            } else {
+                echo $this->_makePretty($body) . "\n";
             }
-            echo $body . "\n";
         } catch (Exception $e) {
             echo $e->getRequest() . "\n";
             if ($e->hasResponse()) {
