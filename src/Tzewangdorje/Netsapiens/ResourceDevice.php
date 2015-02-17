@@ -35,7 +35,6 @@ class ResourceDevice extends Resource {
         if ( isset($params["auth-key"]) ) {
             $bodyParams["auth_key"] =  $params["auth-key"];
         }
-        print_r($bodyParams);
         return $this->_client->post(
             $this->_apiUri, [
             'verify' => false,
