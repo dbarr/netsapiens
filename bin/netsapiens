@@ -4,7 +4,7 @@
 require 'vendor/autoload.php';
 
 $doc = <<<DOC
-Orbtalk Netsapiens PHP Client.
+Netsapiens PHP Client.
 
 Usage:
   netsapiens.php token refresh --username=<username> --password=><password>
@@ -36,7 +36,7 @@ Options:
   --auth-key=<auth-key>    Authentication key for a device
 DOC;
 
-$response = Docopt::handle($doc, array('version'=>'Naval Fate 2.0'));
+$response = Docopt::handle($doc, array('version'=>'Netsapiens PHP Client 1.0'));
 
 $msg = <<<MSG
 Ensure you have a config.ini file in the directory from which you are running the command. The format is:
