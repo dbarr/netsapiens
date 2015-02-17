@@ -13,7 +13,7 @@ class Client {
             "count", "read", "update", "create"
         ),
         "device" => array(
-            "read", "create"
+            "read", "create", "set_password"
         ),
         "phonenumber" => array(
             "read", "create"

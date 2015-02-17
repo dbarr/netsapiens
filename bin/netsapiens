@@ -15,7 +15,8 @@ Usage:
   netsapiens.php phonenumber read --token=<token> --domain=<domain> --to-user=<to-user> --plan=<plan>
   netsapiens.php phonenumber create --token=<token> --domain=<domain> --to-user=<to-user> --plan=<plan> --match=<match>
   netsapiens.php device read --token=<token> --domain=<domain>
-  netsapiens.php device create --token=<token> --domain=<domain> --user=<user> [--auth-key=<auth-key>]
+  netsapiens.php device create --token=<token> --domain=<domain> --user=<user> [--contact=<contact>] [--auth-key=<auth-key>]
+  netsapiens.php device set_password --token=<token> --domain=<domain> --user=<user> --contact=<contact> --auth-key=<auth-key>
   netsapiens.php domain read --token=<token> [--domain=<domain>]
   netsapiens.php (-h | --help)
   netsapiens.php --version
