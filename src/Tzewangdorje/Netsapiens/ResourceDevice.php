@@ -30,7 +30,7 @@ class ResourceDevice extends Resource {
             'action' => "create",
             'aor' =>  "sip:" . $params["user"] . "@" . $params["domain"],
             'owner' =>  $params["user"],
-            'owner_domain' =>  $params["domain"],
+            'domain' =>  $params["domain"],
         ];
         if ( isset($params["auth-key"]) ) {
             $bodyParams["auth_key"] =  $params["auth-key"];
