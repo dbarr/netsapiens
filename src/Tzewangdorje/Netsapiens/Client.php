@@ -52,36 +52,22 @@ class Client {
         $this->_config["clientSecret"] = $config["clientSecret"];
     }
 
-    protected function _makePretty($body)
-    {
-        $doc = new \DOMDocument();
-        $doc->preserveWhiteSpace = false;
-        $doc->formatOutput = true;
-        if ( ! @$doc->loadXML($body) ) {
-            return $body; // if it's not valid XML, then just return the $body string unprocessed
-        }
-        return $doc->saveXML();
-    }
-
     public function run()
     {
         $className = "\Tzewangdorje\Netsapiens\Resource" . ucfirst($this->_objectName);
+
+        if (class_exists($className) === false)
+            throw new Exception('Unknown resource: ' . ucfirst($this->_objectName));
+
         $object = new $className($this->_config);
-        try {
-            $response = call_user_func_array(array($object,$this->_action), array($this->_params));
-            $statusCode = $response->getStatusCode();
-            $body = $response->getBody();
-            if ( $statusCode != "200" || "$body"=="" ) {
-                echo $statusCode . " " . $response->getReasonPhrase() . "\n";
-            } else {
-                echo $this->_makePretty($body) . "\n";
-            }
-        } catch (Exception $e) {
-            echo $e->getRequest() . "\n";
-            if ($e->hasResponse()) {
-                echo $e->getResponse() . "\n";
-            }
-        }
+        $response = call_user_func_array(array($object,$this->_action), array($this->_params));
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody();
+
+        if ( $statusCode != "200" || "$body"=="" )
+            throw new \Exception($response->getResponsePhrase(), $statusCode);
+
+        return $body;
     }
 
     protected function _getObjectAction (array $args)
