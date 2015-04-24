@@ -9,7 +9,6 @@
   },
   "bin": ["bin/netsapiens.php"],
   "require": {
-    "docopt/docopt": "1.0.0-rc1",
     "guzzlehttp/guzzle": "5.1.0"
   }
 }
