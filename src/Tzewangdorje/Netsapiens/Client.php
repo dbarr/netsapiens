@@ -65,7 +65,7 @@ class Client {
         $body = $response->getBody();
 
         if ( $statusCode != "200" || "$body"=="" )
-            throw new \Exception($response->getResponse(), $statusCode);
+            throw new \Exception($response->getReasonPhrase(), $statusCode);
 
         return $body;
     }
