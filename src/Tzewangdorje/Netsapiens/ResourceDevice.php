@@ -56,7 +56,6 @@ class ResourceDevice extends Resource {
             'action' => "delete",
             'aor' =>  $params['aor'],
             'owner' =>  $params["user"],
-            'domain' =>  $params["domain"],
             'owner_domain' =>  $params["domain"],
         ];
 
