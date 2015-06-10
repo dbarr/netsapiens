@@ -49,6 +49,25 @@ class ResourceDevice extends Resource {
         ]);
     }
 
+    public function delete (array $params)
+    {
+        $bodyParams = [
+            'object' => "device",
+            'action' => "delete",
+            'aor' =>  $params['aor'],
+            'owner' =>  $params["user"],
+            'domain' =>  $params["domain"],
+            'owner_domain' =>  $params["domain"],
+        ];
+
+        return $this->_client->post(
+            $this->_apiUri, [
+            'verify' => false,
+            'headers' => ['Authorization' => 'Bearer ' . $params["token"]],
+            'body' => $bodyParams,
+        ]);
+    }
+
     public function set_password (array $params)
     {
         $bodyParams = [
