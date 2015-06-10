@@ -6,20 +6,20 @@ namespace Tzewangdorje\Netsapiens;
 class Client {
 
     protected $_objects = array(
-        "token" => array(
-            "refresh"
+        'token' => array(
+            'refresh',
         ),
-        "subscriber" => array(
-            "count", "read", "update", "create"
+        'subscriber' => array(
+            'count', 'read', 'update', 'create',
         ),
-        "device" => array(
-            "read", "create", "set_password"
+        'device' => array(
+            'read', 'create', 'set_password', 'delete',
         ),
-        "phonenumber" => array(
-            "read", "create"
+        'phonenumber' => array(
+            'read', 'create',
         ),
-        "domain" => array(
-            "read"
+        'domain' => array(
+            'read',
         ),
     );
     protected $_objectName;
