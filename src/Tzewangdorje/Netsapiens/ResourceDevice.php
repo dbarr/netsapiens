@@ -28,10 +28,12 @@ class ResourceDevice extends Resource {
         $bodyParams = [
             'object' => "device",
             'action' => "create",
-            'aor' =>  "sip:" . $params["user"] . "@" . $params["domain"],
+            'aor' =>  $params['aor'],
             'owner' =>  $params["user"],
             'domain' =>  $params["domain"],
             'owner_domain' =>  $params["domain"],
+            'mac' => $params['mac'],
+            'model' => $params['model'],
         ];
         if ( isset($params["contact"]) ) {
             $bodyParams["aor"] =  "sip:" . $params["contact"] . "@" . $params["domain"];
